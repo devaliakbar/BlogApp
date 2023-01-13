@@ -1,4 +1,6 @@
 ﻿using BlogApp.Data;
+using BlogApp.Services;
+using BlogApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Extensions
@@ -10,10 +12,11 @@ namespace BlogApp.Extensions
         {
             services.AddDbContext<DataContext>(opt =>
             {
-                opt.UseNpgsql("Host=localhost;Port=5432;Database=blogapp;Username=username;Password=password");
+                opt.UseNpgsql(config["DefaultConnection"]);
             });
             services.AddCors();
 
+            services.AddScoped<ITokenService, TokenService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }

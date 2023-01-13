@@ -2,7 +2,7 @@ using AutoMapper;
 using BlogApp.DTOs;
 using BlogApp.Entities;
 
-namespace API.Helpers
+namespace BlogApp.Helpers
 {
     public class AutoMapperProfiles : Profile
     {
