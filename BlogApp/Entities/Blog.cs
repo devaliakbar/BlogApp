@@ -1,0 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace BlogApp.Entities
+{
+    public class Blog
+    {
+        [Required]
+        public string Id { get; set; }
+        [Required]
+        public User Owner { get; set; }
+        [Required]
+        public bool IsPublished { get; set; }
+        [Required]
+        public string BlogTitle { get; set; }
+        [Required]
+        public string BlogContent { get; set; }
+    }
+}

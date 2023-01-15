@@ -28,9 +28,9 @@ namespace BlogApp.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<ActionResult<UserDTO>> CreateUser(SignUpDTO createUserDTO)
+        public async Task<ActionResult<UserDTO>> CreateUser(SignUpDTO signUpDTO)
         {
-            if (await _context.Users.AnyAsync(x => x.UserName == createUserDTO.UserName.ToLower()))
+            if (await _context.Users.AnyAsync(x => x.UserName == signUpDTO.UserName.ToLower()))
             {
                 return BadRequest("User already taken");
             }
@@ -40,8 +40,8 @@ namespace BlogApp.Controllers
             var user = new User()
             {
                 Id = Guid.NewGuid().ToString(),
-                UserName = createUserDTO.UserName.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(createUserDTO.Password)),
+                UserName = signUpDTO.UserName.ToLower(),
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(signUpDTO.Password)),
                 PasswordSalt = hmac.Key
             };
 

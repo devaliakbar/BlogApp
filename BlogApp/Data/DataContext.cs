@@ -1,5 +1,4 @@
-﻿using System;
-using BlogApp.Entities;
+﻿using BlogApp.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogApp.Data
@@ -11,6 +10,7 @@ namespace BlogApp.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
     }
 }
 
