@@ -2,6 +2,7 @@
 using BlogApp.Services;
 using BlogApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using BlogApp.Data.Repository;
 
 namespace BlogApp.Extensions
 {
@@ -17,6 +18,10 @@ namespace BlogApp.Extensions
             services.AddCors();
 
             services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBlogRepository, BlogRepository>();
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             return services;
         }
