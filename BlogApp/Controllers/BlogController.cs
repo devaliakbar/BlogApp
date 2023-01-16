@@ -96,12 +96,12 @@ namespace BlogApp.Controllers
             return BadRequest("Can't find the blog");
         }
 
-        [HttpGet("privateBlogs")]
-        public async Task<ActionResult<IEnumerable<BlogDto>>> GetPrivateBlogs()
+        [HttpGet("blogs")]
+        public async Task<ActionResult<IEnumerable<BlogDto>>> GetBlogs()
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<Blog> queryResult = await _context.Blogs.Include(blog => blog.Owner).
-            Where(blog => blog.Owner.Id == userId).ToListAsync();
+            Where(blog => blog.Owner.Id == userId || blog.IsPrivate == false).ToListAsync();
 
             List<BlogDto> result = new List<BlogDto>();
             foreach (Blog blog in queryResult)
@@ -126,7 +126,7 @@ namespace BlogApp.Controllers
         {
             string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             Blog blog = await _context.Blogs.Include(blog => blog.Owner).
-            FirstOrDefaultAsync(x => x.Id == id && x.Owner.Id == userId);
+            FirstOrDefaultAsync(x => x.Id == id && (x.Owner.Id == userId || x.IsPrivate == false));
             if (blog != null)
             {
                 return Ok(new BlogDto()
