@@ -10,6 +10,6 @@ namespace BlogApp.DTOs
         [Required]
         public string BlogContent { get; set; }
         [Required]
-        public bool IsPublished { get; set; }
+        public bool IsPrivate { get; set; }
     }
 }

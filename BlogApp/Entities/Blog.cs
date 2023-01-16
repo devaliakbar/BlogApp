@@ -9,7 +9,7 @@ namespace BlogApp.Entities
         [Required]
         public User Owner { get; set; }
         [Required]
-        public bool IsPublished { get; set; }
+        public bool IsPrivate { get; set; }
         [Required]
         public string BlogTitle { get; set; }
         [Required]

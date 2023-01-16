@@ -36,7 +36,7 @@ namespace BlogApp.Controllers
                     Owner = currentUser,
                     BlogTitle = createBlogDto.BlogTitle,
                     BlogContent = createBlogDto.BlogContent,
-                    IsPublished = createBlogDto.IsPublished
+                    IsPrivate = createBlogDto.IsPrivate
                 };
 
                 _context.Blogs.Add(blog);
@@ -53,7 +53,7 @@ namespace BlogApp.Controllers
                                  },
                                  BlogTitle = blog.BlogTitle,
                                  BlogContent = blog.BlogContent,
-                                 IsPublished = blog.IsPublished
+                                 IsPrivate = blog.IsPrivate
                              });
             }
 
@@ -87,7 +87,7 @@ namespace BlogApp.Controllers
             {
                 blog.BlogTitle = createBlogDto.BlogTitle;
                 blog.BlogContent = createBlogDto.BlogContent;
-                blog.IsPublished = createBlogDto.IsPublished;
+                blog.IsPrivate = createBlogDto.IsPrivate;
                 await _context.SaveChangesAsync();
 
                 return Ok(blog);
@@ -115,7 +115,7 @@ namespace BlogApp.Controllers
                     },
                     BlogTitle = blog.BlogTitle,
                     BlogContent = blog.BlogContent,
-                    IsPublished = blog.IsPublished
+                    IsPrivate = blog.IsPrivate
                 });
 
             return Ok(result);
@@ -139,7 +139,7 @@ namespace BlogApp.Controllers
                     },
                     BlogTitle = blog.BlogTitle,
                     BlogContent = blog.BlogContent,
-                    IsPublished = blog.IsPublished
+                    IsPrivate = blog.IsPrivate
                 });
             }
 
