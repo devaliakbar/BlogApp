@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-# Without using Docker.
+### Without using Docker.
 
 Used db : PostgreSQL
 Before starting set up PostgreSQL and change pgsql settings in "appsettings.json" (production settings) and "appsettings.Development.json" (development settings)
@@ -18,7 +18,7 @@ Now run the application using below command
 $ dotnet run
 ```
 
-# Using Docker
+### Using Docker
 
 Step 1: Build the application in release mode using below command
 ```sh
