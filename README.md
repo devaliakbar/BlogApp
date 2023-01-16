@@ -41,9 +41,9 @@ ENTRYPOINT ["dotnet", "BlogApp.dll"]
 
 #### Step 3: Build the docker file using below command inside the pulish folder
 ```sh
-$ docker build -t devaliakbar/testapi . 
+$ docker build -t devaliakbar/blogapp . 
 ```
-Here "devaliakbar/testapi" is name which given to the docker image. we can use this name to run this image.
+Here "devaliakbar/blogapp" is name which given to the docker image. we can use this name to run this image.
 
 #### Step 4: Compose the docker file for running the app; for example, create a file anywhere with name "DockerComposeExample.yaml" and paste below code
 ```sh
