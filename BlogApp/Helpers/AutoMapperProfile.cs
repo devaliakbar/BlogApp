@@ -9,6 +9,7 @@ namespace BlogApp.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserDTO>();
+            CreateMap<Blog, BlogDto>();
         }
     }
 }

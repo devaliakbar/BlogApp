@@ -4,21 +4,22 @@ using BlogApp.DTOs;
 using BlogApp.Entities;
 using BlogApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
 
 namespace BlogApp.Data.Repository
 {
     public class BlogRepository : IBlogRepository
     {
-        private readonly IMapper _mapper;
         private readonly DataContext _context;
+        private readonly IMapper _mapper;
 
         public BlogRepository(DataContext context, IMapper mapper)
         {
-            _mapper = mapper;
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<Blog> CreateBlog(User owner, CreateBlogDto createBlogDto)
+        public async Task<BlogDto> CreateBlog(User owner, CreateBlogDto createBlogDto)
         {
             Blog blog = new Blog()
             {
@@ -32,10 +33,10 @@ namespace BlogApp.Data.Repository
             _context.Blogs.Add(blog);
             await _context.SaveChangesAsync();
 
-            return blog;
+            return _mapper.Map<BlogDto>(blog);
         }
 
-        public async Task<Blog> UpdateBlog(string userId, string blogId, CreateBlogDto createBlogDto)
+        public async Task<BlogDto> UpdateBlog(string userId, string blogId, CreateBlogDto createBlogDto)
         {
             Blog blog = await _context.Blogs.Include(blog => blog.Owner).
             FirstOrDefaultAsync(x => x.Id == blogId && x.Owner.Id == userId);
@@ -46,13 +47,13 @@ namespace BlogApp.Data.Repository
                 blog.IsPrivate = createBlogDto.IsPrivate;
                 await _context.SaveChangesAsync();
 
-                return blog;
+                return _mapper.Map<BlogDto>(blog);
             }
 
             return null;
         }
 
-        public async Task<Blog> DeleteBlog(string userId, string blogId)
+        public async Task<BlogDto> DeleteBlog(string userId, string blogId)
         {
             Blog blog = await _context.Blogs.Include(blog => blog.Owner).
             FirstOrDefaultAsync(x => x.Id == blogId && x.Owner.Id == userId);
@@ -61,22 +62,25 @@ namespace BlogApp.Data.Repository
                 _context.Blogs.Remove(blog);
                 await _context.SaveChangesAsync();
 
-                return blog;
+                return _mapper.Map<BlogDto>(blog);
             }
 
             return null;
         }
 
-        public async Task<Blog> GetBlog(string userId, string blogId)
+        public async Task<BlogDto> GetBlog(string userId, string blogId)
         {
-            return await _context.Blogs.Include(blog => blog.Owner).
-               FirstOrDefaultAsync(x => x.Id == blogId && (x.Owner.Id == userId || x.IsPrivate == false));
+            return await _context.Blogs.Include(blog => blog.Owner)
+             .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
+               .FirstOrDefaultAsync(x => x.Id == blogId && (x.Owner.Id == userId || x.IsPrivate == false));
         }
 
-        public async Task<List<Blog>> GetBlogs(string userId)
+        public async Task<IEnumerable<BlogDto>> GetBlogs(string userId)
         {
             return await _context.Blogs.Include(blog => blog.Owner).
-             Where(blog => blog.Owner.Id == userId || blog.IsPrivate == false).ToListAsync();
+             Where(blog => blog.Owner.Id == userId || blog.IsPrivate == false)
+             .ProjectTo<BlogDto>(_mapper.ConfigurationProvider)
+                        .ToListAsync();
         }
     }
 }

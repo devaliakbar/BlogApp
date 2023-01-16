@@ -5,10 +5,10 @@ namespace BlogApp.Interfaces
 {
     public interface IBlogRepository
     {
-        Task<Blog> CreateBlog(User owner, CreateBlogDto createBlogDto);
-        Task<Blog> DeleteBlog(string userId, string blogId);
-        Task<Blog> UpdateBlog(string userId, string blogId, CreateBlogDto createBlogDto);
-        Task<List<Blog>> GetBlogs(string userId);
-        Task<Blog> GetBlog(string userId, string blogId);
+        Task<BlogDto> CreateBlog(User owner, CreateBlogDto createBlogDto);
+        Task<BlogDto> DeleteBlog(string userId, string blogId);
+        Task<BlogDto> UpdateBlog(string userId, string blogId, CreateBlogDto createBlogDto);
+        Task<IEnumerable<BlogDto>> GetBlogs(string userId);
+        Task<BlogDto> GetBlog(string userId, string blogId);
     }
 }
