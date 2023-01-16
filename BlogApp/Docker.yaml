@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: postgres
+    container_name: pgsql-dev
+    restart: always
+    environment:
+      - POSTGRES_USER=username
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=blogapp
+    ports:
+      - 5432:5432
+    volumes: 
+      - db:/var/lib/postgresql/data
+  testserver:
+    image: devaliakbar/blogapp
+    container_name: blogapp
+    restart: always
+    ports:
+      - 5000:80
+volumes:
+  db:
+    driver: local
