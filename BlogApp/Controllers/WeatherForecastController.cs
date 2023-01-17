@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BlogApp.DTOs;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlogApp.Controllers;
 
@@ -28,6 +29,23 @@ public class WeatherForecastController : ControllerBase
             Summary = Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
+    }
+
+    [HttpGet("test")]
+    public BlogDto Test()
+    {
+        return new BlogDto()
+        {
+            Id = "TestId",
+            BlogTitle = "TestBlog",
+            BlogContent = "TestContent",
+            IsPrivate = true,
+            Owner = new UserDTO()
+            {
+                Id = "TestUserId",
+                UserName = "TestUsername"
+            }
+        };
     }
 }
 
