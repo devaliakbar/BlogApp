@@ -6,6 +6,7 @@ using System.Text;
 using System.Net;
 using BlogApp.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using BlogApp.Middleware;
 
 namespace BlogApp.Controllers
 {
@@ -15,15 +16,19 @@ namespace BlogApp.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly ITokenService _tokenService;
-        public UserController(IUserRepository userRepository, ITokenService tokenService)
+
+        private readonly ILogger<UserController> _logger;
+        public UserController(IUserRepository userRepository, ITokenService tokenService, ILogger<UserController> logger)
         {
             _userRepository = userRepository;
             _tokenService = tokenService;
+            _logger = logger;
         }
 
         [HttpPost("signup")]
         public async Task<ActionResult<UserDTO>> Signup(SignUpDTO signUpDTO)
         {
+            _logger.LogInformation("Hitted");
             if (await _userRepository.GetUser(signUpDTO.UserName) != null)
             {
                 return BadRequest("User already taken");

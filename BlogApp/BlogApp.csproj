@@ -4,29 +4,40 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' "/>
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' "/>
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2"/>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1"/>
-    <PackageReference Include="AutoMapper" Version="12.0.0"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0"/>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2"/>
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1"/>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2"/>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.2" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.1" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.2" />
+    <PackageReference Include="NLog" Version="5.1.1" />
+    <PackageReference Include="NLog.Targets.Splunk" Version="3.0.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.2.1" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Extensions\"/>
-    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL"/>
-    <None Remove="Entities\"/>
-    <None Remove="Data\"/>
-    <None Remove="AutoMapper"/>
-    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection"/>
+    <None Remove="Extensions\" />
+    <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <None Remove="Entities\" />
+    <None Remove="Data\" />
+    <None Remove="AutoMapper" />
+    <None Remove="AutoMapper.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="NLog" />
+    <None Remove="NLog.Targets.Splunk" />
+    <None Remove="NLog.Extensions.Logging" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\"/>
-    <Folder Include="Entities\"/>
-    <Folder Include="Data\"/>
+    <Folder Include="Extensions\" />
+    <Folder Include="Entities\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="nlog.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>

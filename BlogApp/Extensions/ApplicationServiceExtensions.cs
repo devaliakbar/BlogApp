@@ -3,6 +3,9 @@ using BlogApp.Services;
 using BlogApp.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using BlogApp.Data.Repository;
+using NLog;
+using NLog.Extensions.Logging;
+using NLog.Common;
 
 namespace BlogApp.Extensions
 {
@@ -16,6 +19,15 @@ namespace BlogApp.Extensions
                 opt.UseNpgsql(config["DefaultConnection"]);
             });
             services.AddCors();
+
+            ///Setting Log with splunk
+            LogManager.LoadConfiguration("nlog.xml");
+            InternalLogger.LogToConsole = true;
+            InternalLogger.LogLevel = NLog.LogLevel.Trace;
+            services.AddLogging(l => l.AddNLog()
+            ).Configure<LoggerFilterOptions>(c => c.MinLevel = Microsoft.Extensions.Logging.LogLevel.Trace);
+
+
 
             services.AddScoped<ITokenService, TokenService>();
 
